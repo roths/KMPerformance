@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# upload to maven local repository
+./gradlew :kotlin-plugin:install :gradle-plugin:install :kotlin-native-plugin:install

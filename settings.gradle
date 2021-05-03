@@ -1,0 +1,6 @@
+rootProject.name = 'Performance'
+include 'gradle-plugin'
+include 'kotlin-plugin'
+include 'kotlin-native-plugin'
+include 'shared'
+include 'androidApp'

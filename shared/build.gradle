@@ -1,0 +1,62 @@
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
+apply plugin: 'com.android.library'
+
+apply plugin: "performance.plugin"
+performance {
+    annotations = ["com.luoqiaoyou.library.Performance"]
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        }
+    }
+}
+
+kotlin {
+    android()
+    ios {
+        binaries {
+            framework {
+                baseName = "shared"
+            }
+        }
+    }
+    sourceSets {
+        commonMain {
+        }
+        androidMain {
+            dependencies {
+            }
+        }
+        iosMain {
+
+        }
+    }
+}
+
+
+task packForXcode(type: Sync, group: "build") {
+    def mode = System.getenv("CONFIGURATION") ?: "DEBUG"
+    def sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
+    def targetName = "ios" + (sdkName.startsWith("iphoneos") ? "Arm64" : "X64")
+    def framework = kotlin.targets.getByName(targetName).binaries.getFramework(mode)
+    inputs.property("mode", mode)
+    dependsOn(framework.linkTask)
+    def targetDir = new File(buildDir, "xcode-frameworks")
+    from framework.outputDirectory
+    into targetDir
+}
+
+tasks.getByName("build").dependsOn(packForXcode)

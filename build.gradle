@@ -1,0 +1,25 @@
+buildscript {
+    ext {
+        ktVersion = '1.5.0-M2'
+    }
+    repositories {
+        mavenLocal()
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath "com.luoqiaoyou.performance:gradle-plugin:0.0.1"
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$ktVersion"
+    }
+}
+subprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        google()
+    }
+    apply plugin: "maven"
+    group = "com.luoqiaoyou.performance"
+    version = "0.0.1"
+}

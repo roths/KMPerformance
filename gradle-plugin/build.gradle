@@ -1,0 +1,20 @@
+apply plugin: "java-gradle-plugin"
+apply plugin: "org.jetbrains.kotlin.jvm"
+apply plugin: "kotlin-kapt"
+
+gradlePlugin {
+  plugins {
+    simplePlugin {
+      id = "performance.plugin"
+      implementationClass = "com.luoqiaoyou.plugin.PerformanceGradlePlugin"
+    }
+  }
+}
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$ktVersion"
+  implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:$ktVersion"
+
+  compileOnly "com.google.auto.service:auto-service:1.0-rc4"
+  kapt "com.google.auto.service:auto-service:1.0-rc4"
+}

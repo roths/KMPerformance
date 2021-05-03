@@ -77,7 +77,7 @@ class PerformanceIrOperator(val performanceAnnotations: List<String>, pluginCont
                         UNDEFINED_OFFSET,
                         pluginContext.irBuiltIns.stringType,
                         listOf(
-                                "⇠ doSomeWork [ran in ".ir(),
+                                "⇠ ${declaration.name} [ran in ".ir(),
                                 elapsedNow.call(IrGetValueImpl(
                                         UNDEFINED_OFFSET,
                                         UNDEFINED_OFFSET,

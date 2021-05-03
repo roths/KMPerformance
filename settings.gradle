@@ -4,3 +4,21 @@ include 'kotlin-plugin'
 include 'kotlin-native-plugin'
 include 'shared'
 include 'androidApp'
+
+// attach source code for debug mode
+gradle.beforeProject { eachProject ->
+    if (eachProject != eachProject.rootProject) {
+        eachProject.configurations.all {
+            resolutionStrategy.dependencySubstitution {
+                substitute module("com.luoqiaoyou.performance:kotlin-native-plugin") with project(":kotlin-native-plugin")
+                substitute module("com.luoqiaoyou.performance:kotlin-plugin") with project(":kotlin-plugin")
+            }
+        }
+    } else {
+        eachProject.configurations.all {
+            resolutionStrategy.dependencySubstitution {
+                substitute module("com.luoqiaoyou.performance:gradle-plugin") with project("gradle-plugin")
+            }
+        }
+    }
+}
